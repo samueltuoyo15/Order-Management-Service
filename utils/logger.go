@@ -2,6 +2,7 @@ package utils
 
 import (
 	"log/slog"
+	"github.com/lmittmann/tint"
 	"os"
 )
 
@@ -9,7 +10,10 @@ func InitLogger(pretty bool) *slog.Logger {
 	var handler slog.Handler
 
 	if pretty {
-		handler = slog.NewTextHandler(os.Stdout, nil)
+		handler = tint.NewHandler(os.Stdout, &tint.Options{
+			Level: slog.LevelInfo,
+			TimeFormat: "2006-01-02 15:04:05",
+		})
 	} else {
 		handler = slog.NewJSONHandler(os.Stdout, nil)
 	}
@@ -18,3 +22,5 @@ func InitLogger(pretty bool) *slog.Logger {
 	slog.SetDefault(logger)
 	return logger
 }
+
+

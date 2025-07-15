@@ -2,6 +2,11 @@ PROTO_DIR=proto
 PROTO_FILES=$(PROTO_DIR)/orders.proto
 OUT_DIR=common/genproto/orders
 
+run-kitchen:
+	go run kitchen-service/*.go
+
+run-order:
+	go run order-service/*.go
 proto:
 	mkdir -p $(OUT_DIR)
 	protoc \

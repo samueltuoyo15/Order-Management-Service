@@ -1,6 +1,6 @@
 syntax = "proto3";
 import "google/protobuf/timestamp.proto";
-option go_package = "github.com/samueltuoyo15/Order-Management-Service";
+option go_package = "github.com/samueltuoyo15/Order-Management-Service;orders";
 
 service OrderService {
     rpc CreateOrder(CreateOrderRequest) returns (CreateOrderResponse);

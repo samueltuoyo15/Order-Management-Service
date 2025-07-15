@@ -2,9 +2,14 @@ package main
 
 import (
 	"net"
+	"log"
 	"google.golang.org/grpc"
 	"github.com/samueltuoyo15/Order-Management-Service/utils"
+	handler "github.com/samueltuoyo15/Order-Management-Service/order-service/handler/orders"
+	"github.com/samueltuoyo15/Order-Management-Service/order-service/service"
 )
+
+
 
 type grpcServer struct {
 	addr string
@@ -23,9 +28,10 @@ func (s *grpcServer) Run() error {
 	}
 
 	server := grpc.NewServer()
+	orderService := service.NewOrderService()
+	handler.NewGrpcOrdersService(server, orderService)
 	
-	
-	logger.Info("Grpc Server started and listeneing on port %v", s.addr)
+	logger.Info("Grpc Server started and listeneing", "port", s.addr)
 
 	return server.Serve(listener)
 }

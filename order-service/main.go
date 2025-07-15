@@ -1,4 +1,4 @@
-pacakge main
+package main
 
 func main(){
 	grpcServer := NewGrpcServer(":8080")
