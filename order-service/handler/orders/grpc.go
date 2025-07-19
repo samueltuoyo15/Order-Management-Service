@@ -31,15 +31,19 @@ func (h *OrderGrpcHandler) GetAllOrders(ctx context.Context, req *orders.GetAllO
 
 func (h *OrderGrpcHandler) CreateOrder(ctx context.Context, req *orders.CreateOrderRequest) (*orders.CreateOrderResponse, error) {
 	now := timestamppb.New(time.Now())
+	var customerID int32 = 1
+	var productID int32 = 4
+
 	order := &orders.Order{
 		OrderId: 22,
-		CustomerId: 1,
-		ProductId: 4,
+		CustomerId: customerID,
+		ProductId: productID,
 		Quantity: 5,
 		CreatedAt: now,
 		UpdatedAt: now,
 	}
-
+	customerID++
+	productID++
 	err := h.ordersService.CreateOrder(ctx, order)
 	if err != nil {
 		return nil, err
