@@ -31,7 +31,7 @@ func (s *grpcServer) Run() error {
 	orderService := service.NewOrderService()
 	handler.NewGrpcOrdersService(server, orderService)
 	
-	logger.Info("Grpc Server started and listeneing", "port", s.addr)
+	logger.Info("Grpc Server started and listening on", "port", s.addr)
 
 	return server.Serve(listener)
 }
