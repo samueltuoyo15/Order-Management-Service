@@ -1,6 +1,8 @@
 package handler 
 
 import (
+	"time"
+	"google.golang.org/protobuf/types/known/timestamppb"
 	"context"
 	"github.com/samueltuoyo15/Order-Management-Service/common/genproto/orders"
 	"github.com/samueltuoyo15/Order-Management-Service/order-service/types"
@@ -20,19 +22,22 @@ func NewGrpcOrdersService(grpc *grpc.Server, ordersService types.OrderService){
 }
 
 func (h *OrderGrpcHandler) GetAllOrders(ctx context.Context, req *orders.GetAllOrdersRequest) (*orders.GetAllOrdersResponse, error) {
-		o := h.ordersService.GetOrders(ctx)
+		o := h.ordersService.GetAllOrders(ctx)
 		res := &orders.GetAllOrdersResponse{
-			Orders: o
+			Orders: o,
 		}
 		return res, nil
 }
 
 func (h *OrderGrpcHandler) CreateOrder(ctx context.Context, req *orders.CreateOrderRequest) (*orders.CreateOrderResponse, error) {
+	now := timestamppb.New(time.Now())
 	order := &orders.Order{
 		OrderId: 22,
 		CustomerId: 1,
 		ProductId: 4,
 		Quantity: 5,
+		CreatedAt: now,
+		UpdatedAt: now,
 	}
 
 	err := h.ordersService.CreateOrder(ctx, order)

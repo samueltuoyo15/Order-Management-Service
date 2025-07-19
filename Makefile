@@ -7,6 +7,7 @@ run-kitchen:
 
 run-order:
 	go run order-service/*.go
+	
 proto:
 	mkdir -p $(OUT_DIR)
 	protoc \

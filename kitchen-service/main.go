@@ -1,4 +1,4 @@
-pacakge main
+package main
 
 import (
 	"log"
@@ -8,13 +8,13 @@ import (
 
 func NewGRPCClient(addr string) *grpc.ClientConn{
 	conn, err := grpc.NewClient(addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
-	if err != il {
+	if err != nil {
 		log.Fatalf("failed to connect: %v", err)
 	}
 	return conn
 }
 
 func main(){
-	http.Server := NewHttpServer(":3000")
+	httpServer := NewHttpServer(":3000")
 	httpServer.Run()
 }

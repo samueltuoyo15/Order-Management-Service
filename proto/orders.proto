@@ -37,21 +37,11 @@ message CreateOrderResponse {
     Order order = 2;
 }
 
-message GetAllOrderRequest {
-    int32 order_id = 1;
-}
-
-message GetAllOrderResponse {
-    repeated Order orders = 1;
-}
-
-
 message GetAllOrdersRequest {
-    int32 page = 1;
-    int32 page_size = 2;
+    int32 customer_id = 1;
 }
 
 message GetAllOrdersResponse {
     repeated Order orders = 1;
-    int32 total = 2;
 }
+

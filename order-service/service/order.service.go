@@ -20,6 +20,6 @@ func (s *OrderService) CreateOrder(ctx context.Context, order *orders.Order) err
 	return nil
 }
 
-func (s *OrderService) GetAllOrders(ctx context.Context, order *orders.Order) {
+func (s *OrderService) GetAllOrders(ctx context.Context) []*orders.Order {
 	return ordersDb
 }
