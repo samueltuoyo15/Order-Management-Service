@@ -2,6 +2,9 @@ package handler
 
 import (
 	"time"
+	"crypto/rand"
+	"encoding/binary"
+	mathrand "math/rand"
 	"google.golang.org/protobuf/types/known/timestamppb"
 	"context"
 	"github.com/samueltuoyo15/Order-Management-Service/common/genproto/orders"
@@ -31,11 +34,11 @@ func (h *OrderGrpcHandler) GetAllOrders(ctx context.Context, req *orders.GetAllO
 
 func (h *OrderGrpcHandler) CreateOrder(ctx context.Context, req *orders.CreateOrderRequest) (*orders.CreateOrderResponse, error) {
 	now := timestamppb.New(time.Now())
-	var customerID int32 = 1
-	var productID int32 = 4
+	customerID := generateCryptoRandomID(1000) 
+	productID := generateMathRandomID(10, 99)
 
 	order := &orders.Order{
-		OrderId: 22,
+		OrderId: generateMathRandomID(10000, 99999),
 		CustomerId: customerID,
 		ProductId: productID,
 		Quantity: 5,
@@ -55,4 +58,22 @@ func (h *OrderGrpcHandler) CreateOrder(ctx context.Context, req *orders.CreateOr
 		Order: order,
 	}
 	return res, nil
+}
+
+func generateCryptoRandomID(max int32) int32 {
+	var b [4]byte
+	_, err := rand.Read(b[:])
+	if err != nil {
+		return 1 
+	}
+	val := int32(binary.BigEndian.Uint32(b[:]))
+	if val < 0 {
+		val = -val
+	}
+	return val % max
+}
+
+func generateMathRandomID(min, max int32) int32 {
+	mathrand.Seed(time.Now().UnixNano())
+	return min + int32(mathrand.Intn(int(max-min+1)))
 }
