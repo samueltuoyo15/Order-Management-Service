@@ -1,6 +1,9 @@
 package main
 
 func main(){
-	grpcServer := NewGrpcServer(":8080")
+	httpServer := NewHttpServer(":8000")
+	go httpServer.Run()
+
+	grpcServer := NewGrpcServer(":9000")
 	grpcServer.Run()
 }
