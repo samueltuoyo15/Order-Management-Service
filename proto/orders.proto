@@ -37,11 +37,11 @@ message CreateOrderResponse {
     Order order = 2;
 }
 
-message GetOrderRequest {
+message GetAllOrderRequest {
     int32 order_id = 1;
 }
 
-message GetOrderResponse {
+message GetAllOrderResponse {
     repeated Order orders = 1;
 }
 

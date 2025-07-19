@@ -9,8 +9,6 @@ import (
 	"github.com/samueltuoyo15/Order-Management-Service/order-service/service"
 )
 
-
-
 type grpcServer struct {
 	addr string
 }

@@ -2,6 +2,8 @@ package handler
 
 import (
 	"net/http"
+	"google.golang.org/protobuf/types/known/timestamppb"
+	"time"
 	"github.com/samueltuoyo15/Order-Management-Service/common/genproto/orders"
 	"github.com/samueltuoyo15/Order-Management-Service/common/util"
 	"github.com/samueltuoyo15/Order-Management-Service/order-service/types"
@@ -29,12 +31,15 @@ func (h *OrdersHttpHandler) CreateOrder(w http.ResponseWriter, r *http.Request) 
 		util.WriteError(w, http.StatusBadRequest, err)
 		return 
 	}
+	now := timestamppb.New(time.Now())
 
 	order := &orders.Order{
 		OrderId: 42,
 		CustomerId: req.GetCustomerId(),
 		ProductId: req.GetProductId(),
 		Quantity: req.GetQuantity(),
+		CreatedAt: now,
+		UpdatedAt: now,
 	}
 
 	err = h.ordersService.CreateOrder(r.Context(), order)

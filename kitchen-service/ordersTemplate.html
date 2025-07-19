@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitchen Orders</title>
+</head>
+<body>
+    <h1>Orders List</h1>
+    {{ if . }}
+    <table border="1">
+        <tr>
+            <th>Order ID</th>
+            <th>Customer ID</th>
+            <th>Quantity</th>
+            <th>Date Created</th>
+            <th>Updated At</th>
+        </tr>
+        {{ range . }}
+        <tr>
+            <td>{{ .OrderId }}</td>
+            <td>{{ .CustomerId }}</td>
+            <td>{{ .Quantity }}</td>
+            <td>{{ .CreatedAt }}</td>
+            <td>{{ .UpdatedAt }}</td>
+        </tr>
+        {{ end }}
+    </table>
+    {{ else }}
+    <p>No orders yet!</p>
+    {{ end }}
+</body>
+</html>
